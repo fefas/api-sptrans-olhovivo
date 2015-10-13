@@ -1,0 +1,30 @@
+<?php
+namespace Fefas\SPTrans\API\OlhoVivo;
+
+class ClientTest extends \PHPUnit_Framework_TestCase
+{
+    public function initiate()
+    {
+        $token = json_decode(file_get_contents(__DIR__ .'/token.json'));
+        $this->client = new Client($token);
+    }
+
+    public function testGetLineAndGetPosition()
+    {
+        $apiClient = $this->initiate();
+
+        $line = $this->client->getBusLine(8012);
+
+        $this->assertSame(2, count($line));
+
+        $lineCode = $line[0]->CodigoLinha;
+
+        $positions = $this->client->getBusPositionByLineCode($lineCode);
+
+        foreach ($positions->vs as $pos)
+            $this->assertSame(
+                ['p', 'a', 'py', 'px'],
+                array_keys((array) $pos)
+            );
+    }
+}
