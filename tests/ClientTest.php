@@ -27,4 +27,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 array_keys((array) $pos)
             );
     }
+
+    public function testGetStops()
+    {
+        $apiClient = $this->initiate();
+
+        $stops = $this->client->getStopsByLineCode(8012);
+
+        foreach ($stops as $stop) {
+            $this->assertSame(
+                ['CodigoParada', 'Nome', 'Endereco', 'Latitude', 'Longitude'],
+                array_keys((array) $stop)
+            );
+        }
+    }
 }

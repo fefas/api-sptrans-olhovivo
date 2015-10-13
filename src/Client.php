@@ -53,6 +53,10 @@ class Client
 
     public function getStopsByLineCode($lineCode)
     {
+        $response = $this->request('GET', '/Parada/Buscar', [
+            'termosBusca' => $lineCode
+        ]);
+        return json_decode($response->getBody());
     }
 
     private function request($method, $resource, $queryString)
