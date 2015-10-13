@@ -14,6 +14,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $apiClient = $this->initiate();
 
         $line = $this->client->getBusLine(8012);
+        var_dump($line);
 
         $this->assertSame(2, count($line));
 
